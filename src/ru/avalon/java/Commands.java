@@ -6,8 +6,10 @@ package ru.avalon.java;
 public enum Commands {
     move,
     copy,
-    exit
+    exit,
     /*
      * TODO №8 К текущему списку команд, добавьте ещё две команды
      */
+    delete,
+    rename
 }

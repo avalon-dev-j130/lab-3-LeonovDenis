@@ -1,5 +1,11 @@
 package ru.avalon.java.actions;
 
+import ru.avalon.java.console.Logger;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * Абстрактное представление о действии, как функциональном
  * элементе приложения.
@@ -9,6 +15,10 @@ package ru.avalon.java.actions;
  * основной поток исполнения.
  */
 public interface Action extends Runnable, AutoCloseable {
+
+    ExecutorService pool = Executors.newWorkStealingPool();//пул потоков, число потоков = числу ядер
+    Collection<Logger> list = new ArrayList<>();//коллекция выполненных дополнительных потоков
+
     /**
      * Запускает потоковый объект на исполнение в отдельном
      * потоке исполнения.
@@ -17,7 +27,7 @@ public interface Action extends Runnable, AutoCloseable {
         /*
          * TODO №1 Реализуйте метод start интерфейса Action.
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        pool.submit(this);//добавляем задачу в пул потоков
     }
-    
+
 }
