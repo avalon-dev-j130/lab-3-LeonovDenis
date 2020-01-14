@@ -10,8 +10,8 @@ import java.nio.file.Paths;
 /**
  * Лабораторная работа №3
  * <p>
- * Курс: "Программирование на платформе Java. Разработка
- * многоуровневых приложений"
+ * Курс: "Программирование на платформе Java. Разработка многоуровневых
+ * приложений"
  * <p>
  * Тема: "Потоки исполнения (Threads) и многозадачность"
  *
@@ -34,8 +34,8 @@ public class Lab3 extends ConsoleUI<Commands> {
     /**
      * Конструктор класса.
      * <p>
-     * Инициализирует экземпляр базового типа с использоавнием
-     * перечисления {@link Commands}.
+     * Инициализирует экземпляр базового типа с использоавнием перечисления
+     * {@link Commands}.
      */
     Lab3() {
         super(Commands.class);
@@ -56,14 +56,13 @@ public class Lab3 extends ConsoleUI<Commands> {
                     source = Paths.get(in.readLine());
                     System.out.println("Введите директорию\\файл куда копировать файл.");
                     target = Paths.get(in.readLine());
-                    isDirectory();//Проверка.Введена директория или файл
                     try (Action act = new FileCopyAction(source, target)) {
                         act.start();
                     }
                 } catch (IOException ex) {
-                    System.err.println("Ошибка чтения строки " + ex.getMessage()+"\n> ");
+                    System.err.println("Ошибка чтения строки " + ex.getMessage() + "\n> ");
                 } catch (Exception ex) {
-                    System.err.println("Ошибка закрытия FileCopyAction " + ex.getMessage()+"\n> ");
+                    System.err.println("Ошибка закрытия FileCopyAction " + ex.getMessage() + "\n> ");
                 }
                 break;
             case move:
@@ -79,9 +78,9 @@ public class Lab3 extends ConsoleUI<Commands> {
                         act.start();
                     }
                 } catch (IOException ex) {
-                    System.err.println("Ошибка чтения строки " + ex.getMessage()+"\n> ");
+                    System.err.println("Ошибка чтения строки " + ex.getMessage() + "\n> ");
                 } catch (Exception ex) {
-                    System.err.println("Ошибка закрытия FileMoveAction " + ex.getMessage()+"\n> ");
+                    System.err.println("Ошибка закрытия FileMoveAction " + ex.getMessage() + "\n> ");
                 }
                 break;
             case exit:
@@ -104,9 +103,9 @@ public class Lab3 extends ConsoleUI<Commands> {
                         act.start();
                     }
                 } catch (IOException ex) {
-                    System.err.println("Ошибка чтения строки " + ex.getMessage()+"\n> ");
+                    System.err.println("Ошибка чтения строки " + ex.getMessage() + "\n> ");
                 } catch (Exception ex) {
-                    System.err.println("Ошибка закрытия FileDeleteAction " + ex.getMessage()+"\n> ");
+                    System.err.println("Ошибка закрытия FileDeleteAction " + ex.getMessage() + "\n> ");
                 }
                 break;
             case rename:
@@ -119,23 +118,11 @@ public class Lab3 extends ConsoleUI<Commands> {
                         act.start();
                     }
                 } catch (IOException ex) {
-                    System.err.println("Ошибка чтения строки " + ex.getMessage()+"\n> ");
+                    System.err.println("Ошибка чтения строки " + ex.getMessage() + "\n> ");
                 } catch (Exception ex) {
-                    System.err.println("Ошибка закрытия FileRenameAction " + ex.getMessage()+"\n> ");
+                    System.err.println("Ошибка закрытия FileRenameAction " + ex.getMessage() + "\n> ");
                 }
                 break;
         }
     }
-
-    private void isDirectory() {
-        try {
-            if (!Files.isRegularFile(target) && !Files.exists(target)) {
-                Files.createDirectory(target);
-                this.target = Paths.get(target.toString(), source.getFileName().toString());
-            }
-        } catch (IOException ex) {
-            System.err.println("Ошибка создания директории " + ex.getMessage()+"\n> ");
-        }
-    }
-
 }
