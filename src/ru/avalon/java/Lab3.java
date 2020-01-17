@@ -3,7 +3,6 @@ package ru.avalon.java;
 import ru.avalon.java.actions.*;
 import ru.avalon.java.console.ConsoleUI;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -54,8 +53,9 @@ public class Lab3 extends ConsoleUI<Commands> {
                 try {
                     System.out.println("Введите путь откуда копировать файл.");
                     source = Paths.get(in.readLine());
-                    System.out.println("Введите директорию\\файл куда копировать файл.");
+                    System.out.println("Введите путь куда копировать файл.");
                     target = Paths.get(in.readLine());
+                    isExist(source);
                     try (Action act = new FileCopyAction(source, target)) {
                         act.start();
                     }
@@ -72,7 +72,7 @@ public class Lab3 extends ConsoleUI<Commands> {
                 try {
                     System.out.println("Введите путь откуда переместить файл.");
                     source = Paths.get(in.readLine());
-                    System.out.println("Введите директорию куда переместить файл.");
+                    System.out.println("Введите ДИРЕКТОРИЮ куда переместить файл.");
                     target = Paths.get(in.readLine());
                     try (Action act = new FileMoveAction(source, target)) {
                         act.start();
@@ -112,7 +112,7 @@ public class Lab3 extends ConsoleUI<Commands> {
                 try {
                     System.out.println("Введите путь файла для переименовки.");
                     source = Paths.get(in.readLine());
-                    System.out.println("Введите новое имя файла.");
+                    System.out.println("Введите новое ИМЯ файла.");
                     target = Paths.get(in.readLine());
                     try (Action act = new FileRenameAction(source, target.toString())) {
                         act.start();
@@ -124,5 +124,8 @@ public class Lab3 extends ConsoleUI<Commands> {
                 }
                 break;
         }
+    }
+    private void isExist(Path p){
+        if(!p.toFile().exists())System.out.println("Файла нет");
     }
 }

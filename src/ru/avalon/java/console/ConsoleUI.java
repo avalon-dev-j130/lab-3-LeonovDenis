@@ -75,6 +75,7 @@ public class ConsoleUI<E extends Enum<E>> extends EnumReader<E> implements Runna
      */
     @Override
     public void close() throws IOException {
+        super.close();
         exit = true;
         onClose();
     }
@@ -84,7 +85,7 @@ public class ConsoleUI<E extends Enum<E>> extends EnumReader<E> implements Runna
      * Отчет о выполненных потоках
      */
     public void onClose() {
-        Action.pool.shutdown();
+        Action.pool.shutdownNow();
         if (!Action.list.isEmpty()) {
             System.out.println("\nВыполнялись дополнительные потоки:");
             Action.list.forEach(System.out::println);

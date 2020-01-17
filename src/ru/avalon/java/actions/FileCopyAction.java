@@ -6,7 +6,6 @@ import ru.avalon.java.console.Logger;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 /**
@@ -30,7 +29,7 @@ public class FileCopyAction implements Action {
         /*
          * TODO №2 Реализуйте метод run класса FileCopyAction
          */
-        createDir();
+        createFile();
         try {
             Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ex) {
@@ -51,18 +50,15 @@ public class FileCopyAction implements Action {
         System.out.println("Поток \"" + Thread.currentThread().getName() + "\" создал дополнительный поток.");
     }
 
-    private void createDir() {
+    private void createFile() {
 
         try {
-            if (source.getFileName().toString().equals(target.getFileName().toString())) {
+            if (!target.toFile().exists()) {
                 Files.createDirectory(target.getParent());
-            } else {
-                Files.createDirectory(target);
-                target = Paths.get(target.toString(), source.getFileName().toString());
-
             }
+            Files.createFile(target);
         } catch (IOException ignore) {
-            System.out.println("Ошибка создания несуществующей директории");
+            System.out.println("Ошибка создания файла");
         }
     }
 }
